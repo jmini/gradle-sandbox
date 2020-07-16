@@ -1,0 +1,9 @@
+== Sample Maven Plugin
+
+Test project for building and publishing a maven-plugin with gradle.
+
+Source code:
+https://maven.apache.org/guides/plugin/guide-java-plugin-development.html
+
+Gradle plugin used:
+https://www.benediktritter.de/maven-plugin-development/

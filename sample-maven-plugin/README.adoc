@@ -7,3 +7,11 @@ https://maven.apache.org/guides/plugin/guide-java-plugin-development.html
 
 Gradle plugin used:
 https://www.benediktritter.de/maven-plugin-development/
+
+Build and publish the plugin to the local maven repository:
+
+    ./gradlew publishToMavenLocal
+
+A sample pom that uses the maven plugin is available in the `usage` folder, to run it:
+
+    mvn verify -f usage/pom.xml

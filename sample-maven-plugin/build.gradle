@@ -1,6 +1,7 @@
 plugins {
     id 'de.benediktritter.maven-plugin-development' version '0.2.1'
     id 'maven-publish'
+    id 'signing'
 }
 
 repositories {
@@ -14,6 +15,27 @@ wrapper {
 group = 'org.example'
 version = '0.1.2'
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications)
+}
+
+tasks.withType(Sign) {
+    onlyIf {
+        project.hasProperty('signing.gnupg.keyName')
+    }
+}
+
 dependencies {
     implementation 'org.apache.maven:maven-plugin-api:3.6.3'
     compileOnly 'org.apache.maven.plugin-tools:maven-plugin-annotations:3.6.0'
@@ -26,6 +48,8 @@ publishing {
                 inceptionYear = "2020"
             }
             from components.java
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
